@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1037542583960",
+    "project_id": "mulazmat-bd18f",
+    "storage_bucket": "mulazmat-bd18f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037542583960:android:9ded214f11a303af0d2aed",
+        "android_client_info": {
+          "package_name": "com.mulazamat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037542583960-e20q2br7dr9q9ia5qelpo7rgh5o68c55.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mulazamat",
+            "certificate_hash": "2b4b1a9f66cb2c81eb288316c5176570614ac38a"
+          }
+        },
+        {
+          "client_id": "1037542583960-5mu7b7fdpt986e5e5lrndo753g47qukh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU1BZUonEjN-Xp2ItoQrWhDcQB87gzim0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037542583960-5mu7b7fdpt986e5e5lrndo753g47qukh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
