@@ -33,6 +33,7 @@ import EmployerJobDetailScreen from "../screens/employer_screens/posted_jobs/Emp
 import SOSEmergency from "../screens/job_needer_Screens/sos_emergency/SOSEmergency";
 import MySchedule from "../screens/schedul/MySchedule";
 import ForgotPasswordScreen from "../screens/auth_screens/ForgotPasswordScreen";
+import PickLocationScreen from "../screens/employer_screens/location/PickLocationScreen";
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -61,7 +62,7 @@ const MyStack = () => {
 
       <Stack.Screen name={routes.EMPLOYER_JOB_DETAILS_SCREEN} component={EmployerJobDetailScreen} />
       <Stack.Screen name={routes.EDIT_EMPLOYER_PROFILE_SCREEN} component={EditEmployerProfileScreen} />
-
+      <Stack.Screen name={routes.PICK_LOCATION} component ={PickLocationScreen}/>
       <Stack.Screen name={routes.JOBBER_PROFILE_DETAILS_SCREEN} component={JobberProfileScreen} />
       <Stack.Screen name={routes.EDIT_JOBBER_PROFILE_SCREEN} component={EditJobberProfileScreen} />
 

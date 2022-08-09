@@ -35,10 +35,14 @@
 			</dict>
 		</dict>
 	</dict>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Mulazamat app Want to use Location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Mulazamat app Want to use Location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Mulazamat app needs to get your location...</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App need Permission to take picture form device</string>
+	<string>Mulazamat app need Permission to take picture form device</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

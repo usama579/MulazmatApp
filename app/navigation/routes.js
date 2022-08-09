@@ -10,5 +10,6 @@ export default Object.freeze({
   JOB_POST_SCREEN: 'JobPostScreen',
   JOBBER_JOB_DETAILS_SCREEN: 'JobDetailsScreen',
   DRAWER: 'Drawer',
-  CHAT_BOX_SCREEN: 'ChatboxScreen'
+  CHAT_BOX_SCREEN: 'ChatboxScreen',
+  PICK_LOCATION: "PickLocationScreen"
 });
