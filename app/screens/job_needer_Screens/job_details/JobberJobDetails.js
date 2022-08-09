@@ -196,7 +196,7 @@ const HomeScreen = ({navigation, route}) => {
           {renderTitleAndValue('Title', item?.title)}
           {renderTitleAndValue('Type', item?.jobType)}
           {renderTitleAndValue('Category', item?.category)}
-
+          {renderTitleAndValue("Location", item?.locationName)}
           {renderTitleAndValue('Description', item?.description)}
 
           <MyButton
