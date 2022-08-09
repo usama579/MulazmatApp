@@ -25,12 +25,29 @@ import SmallText from "../../../components/SmallText";
 import NormalText from "../../../components/NormalText";
 import LocationComponent from '../../../components/LocationComponent';
 import routes from '../../../navigation/routes';
+import Geolocation from '@react-native-community/geolocation';
+import { LATITUDE_DELTA, LONGITUDE_DELTA, windowHeight, windowWidth } from '../../../constants/constants';
 
-const PostJobScreen = ({navigation}) => {
+const PostJobScreen = ({route,navigation}) => {
+
+  useEffect(() => {
+    if (route.params.locationName && route.params.region) {
+        console.log('jajfsa', route.params)
+        setLocation(route.params.locationName)
+        setRegion(route.params.region)
+        
+    }
+  }, [route.params]);
+
   const [loading, setLoading] = useState(false);
   const [successDialogShow, setSuccessDialogShow] = useState(false);
   const [errorDialogShow, setErrorDialogShow] = useState(false);
-
+  const [region, setRegion] = useState({
+    latitude: 37.78825,
+    longitude: -122.4324,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+})
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -50,6 +67,36 @@ const PostJobScreen = ({navigation}) => {
     getTotalJobs();
     return clearAllState();
   }, [isFocused]);
+
+  useEffect(() => {
+    fetchUserCurrentLocation()
+  }, [])
+
+   // FETCH USER CURRENT POSITION METHOD
+   const fetchUserCurrentLocation = () => {
+    Geolocation.getCurrentPosition(
+      //Will give you the current location
+      (position) => {
+        const currentLocation = {
+            "latitude": position?.coords.latitude, "longitude": position?.coords.longitude, "latitudeDelta": LATITUDE_DELTA,
+            "longitudeDelta": LONGITUDE_DELTA
+        }
+        setRegion(currentLocation)
+      },
+      (error) => {
+          console.log('err', error)
+          if(error.PERMISSION_DENIED || error.POSITION_UNAVAILABLE || error.TIMEOUT)
+          {
+            alert('Something went wrong!')
+          }
+      },
+      {
+        enableHighAccuracy: false,
+        timeout: 30000,
+        maximumAge: 1000
+      },
+    );
+  };
 
   const clearAllState = () => {
     setTitle('');
@@ -184,13 +231,13 @@ const PostJobScreen = ({navigation}) => {
           borderRadius: 8,
           marginVertical: 10 - 3.0,
         }}
-        onPress={() => navigation.navigate(routes.PICK_LOCATION)}
+        onPress={() => navigation.navigate(routes.PICK_LOCATION,{regionValue: region})}
       >
         <Text style={{ marginLeft:10, fontSize: 14, color:Colors.primaryColor }}>
           {location}
         </Text>
       </TouchableOpacity>
-        <LocationComponent/>
+        <LocationComponent region={region}/>
         <SelectJobType getType={result => setJobType(result)} />
         {jobType === 'Time Duration' && <>
           <View style={styles.dateMainCNTR}>{_renderModalDateCNTR()}</View>

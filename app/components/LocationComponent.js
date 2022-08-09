@@ -4,13 +4,7 @@ import { windowHeight, windowWidth } from '../constants/constants'
 import MapView,{ Marker } from 'react-native-maps'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
-export default function LocationComponent() {
-    const [region, setregion] = useState({
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-    })
+export default function LocationComponent({region}) {
   return (
     <View style={styles.container}>
        <MapView

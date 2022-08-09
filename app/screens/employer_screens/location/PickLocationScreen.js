@@ -6,12 +6,14 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Geocoder from 'react-native-geocoding';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import {GooglePlaceData, GooglePlaceDetail, GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'; // IMPORT GOOGLE PLACE AUTOCOMPLETE
-import Geolocation from '@react-native-community/geolocation';
 import { LATITUDE_DELTA, LONGITUDE_DELTA, windowHeight, windowWidth } from '../../../constants/constants';
+import routes from '../../../navigation/routes';
 
 Geocoder.init("AIzaSyAKUCt72tY8JJ3OvPz7tyorPor7E5Mf_no");
 
-export default function PickLocationScreen({navigation}) {
+export default function PickLocationScreen({route,navigation}) {
+    const {regionValue} = route.params
+    
     const [region, setregion] = useState({
         // latitude: 37.78825,
         // longitude: -122.4324,
@@ -30,36 +32,9 @@ export default function PickLocationScreen({navigation}) {
     const addressRef = useRef() 
 
     useEffect(() => {
-     fetchUserCurrentLocation()
+     setregion(regionValue)
+     fetchAddress(regionValue)
     }, [])
-
-  // FETCH USER CURRENT POSITION METHOD
-  const fetchUserCurrentLocation = () => {
-    Geolocation.getCurrentPosition(
-      //Will give you the current location
-      (position) => {
-        const currentLocation = {
-            "latitude": position?.coords.latitude, "longitude": position?.coords.longitude, "latitudeDelta": LATITUDE_DELTA,
-            "longitudeDelta": LONGITUDE_DELTA
-        }
-        setregion(currentLocation)
-        fetchAddress(currentLocation)
-        mapView.current.animateToRegion(currentLocation);
-      },
-      (error) => {
-          console.log('err', error)
-          if(error.PERMISSION_DENIED || error.POSITION_UNAVAILABLE || error.TIMEOUT)
-          {
-            setSettingPrompt(true)
-          }
-      },
-      {
-        enableHighAccuracy: false,
-        timeout: 30000,
-        maximumAge: 1000
-      },
-    );
-  };
 
      // FETCH LOCATION DETAILS AS A JSON FROM GOOGLE MAP API
      const fetchAddress = (location) =>
@@ -123,7 +98,9 @@ export default function PickLocationScreen({navigation}) {
                   renderLeftButton=
                   {
                       () =>
-                      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.icon}>
+                      <TouchableOpacity onPress={() =>  navigation.goBack()
+                      }
+                        style={styles.icon}>
                           <Ionicons name={'arrow-back'} color={'black'} size={30} />
                           </TouchableOpacity>
                   }
@@ -159,7 +136,7 @@ export default function PickLocationScreen({navigation}) {
                 ref={mapView}
                 style={styles.map}
                 region={region}
-                customMapStyle={dark ? mapStyle : []}
+                // customMapStyle={dark ? mapStyle : []}
                 showsUserLocation
                 onRegionChange={(region) => {
                     console.log("region:", region)
@@ -177,7 +154,13 @@ export default function PickLocationScreen({navigation}) {
             <View style={{...styles.markerFixed}}>
                 <FontAwesome5 name="map-pin" size={35} color={'red'}/> 
             </View>
-            <TouchableOpacity style={styles.button} onPress={()=>{}}>
+            <TouchableOpacity style={styles.button} onPress={()=>{
+                navigation.navigate({
+                    name: routes.JOB_POST_SCREEN,
+                    params: { region: region, locationName: addressValue },
+                    merge: true,
+                  })
+            }}>
                 <Text style={styles.buttonText}> Save </Text>
             </TouchableOpacity>
     </SafeAreaView>
