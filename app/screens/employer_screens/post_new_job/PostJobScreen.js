@@ -23,6 +23,8 @@ import {useIsFocused} from '@react-navigation/native';
 import DatePicker from "react-native-date-picker";
 import SmallText from "../../../components/SmallText";
 import NormalText from "../../../components/NormalText";
+import LocationComponent from '../../../components/LocationComponent';
+import routes from '../../../navigation/routes';
 
 const PostJobScreen = ({navigation}) => {
   const [loading, setLoading] = useState(false);
@@ -35,7 +37,7 @@ const PostJobScreen = ({navigation}) => {
   const [jobType, setJobType] = useState('');
   const [userUid, setUserUid] = useState('UserUIDShouldbeHere');
   const [totalJobs, setTotalJobs] = useState([]);
-
+  const [location, setLocation] = useState("Pick Location")
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [dateCNTRNbr, setDateCNTRNbr] = useState(1);
@@ -56,6 +58,7 @@ const PostJobScreen = ({navigation}) => {
     setJobType('');
     setStartDate(new Date());
     setEndDate(new Date());
+    setLocation("Pick Location")
   };
 
   const getTotalJobs = () => {
@@ -172,7 +175,22 @@ const PostJobScreen = ({navigation}) => {
           setSelectedValue={setSelectedCategory}
           selectedValue={selectedCategory}
         />
-
+        <TouchableOpacity
+        style={{ 
+          paddingVertical: 15,
+          backgroundColor: Colors.secondaryColor,
+          borderWidth:1,
+          borderColor: Colors.blackColor,
+          borderRadius: 8,
+          marginVertical: 10 - 3.0,
+        }}
+        onPress={() => navigation.navigate(routes.PICK_LOCATION)}
+      >
+        <Text style={{ marginLeft:10, fontSize: 14, color:Colors.primaryColor }}>
+          {location}
+        </Text>
+      </TouchableOpacity>
+        <LocationComponent/>
         <SelectJobType getType={result => setJobType(result)} />
         {jobType === 'Time Duration' && <>
           <View style={styles.dateMainCNTR}>{_renderModalDateCNTR()}</View>

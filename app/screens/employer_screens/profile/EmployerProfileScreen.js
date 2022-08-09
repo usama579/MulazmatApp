@@ -21,7 +21,6 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 import {useIsFocused} from '@react-navigation/native';
-import LocationComponent from '../../../components/LocationComponent';
 
 const {width} = Dimensions.get('screen');
 
@@ -80,16 +79,6 @@ const EmployerProfileScreen = ({navigation}) => {
 
           {moreInfo({info: email})}
           {moreInfo({info: phoneNo})}
-          
-            <LocationComponent/>
-            <TouchableOpacity
-              activeOpacity={0.9}
-              onPress={() => navigation.navigate(routes.PICK_LOCATION)}
-              style={{...styles.cancelButtonStyle,marginTop:10}}>
-              <Text style={{...{fontSize: 14, color: Colors.blackColor}}}>
-                Pick Location
-              </Text>
-            </TouchableOpacity>
           {title({title: 'APP'})}
 
           <TouchableOpacity
