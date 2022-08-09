@@ -35,7 +35,6 @@ const PostJobScreen = ({route,navigation}) => {
         console.log('jajfsa', route.params)
         setLocation(route.params.locationName)
         setRegion(route.params.region)
-        
     }
   }, [route.params]);
 
@@ -65,7 +64,7 @@ const PostJobScreen = ({route,navigation}) => {
     let user = auth().currentUser;
     setUserUid(user?.uid);
     getTotalJobs();
-    return clearAllState();
+    // return clearAllState();
   }, [isFocused]);
 
   useEffect(() => {
@@ -139,6 +138,8 @@ const PostJobScreen = ({route,navigation}) => {
       alert ("Kindly select the Category")
     } else if (jobType == "") {
       alert ("Kindly Select the Job Type")
+    } else if (location == "Pick Location") {
+      alert ("Kindly Select the Location")
     } else {
       setLoading(true);
     firestore()
@@ -153,6 +154,8 @@ const PostJobScreen = ({route,navigation}) => {
         endDate: endDate,
         employerId: userUid,
         status: 'open',
+        locationName: location,
+        locationRegion: region
       })
       .then(() => {
         setLoading(false);
